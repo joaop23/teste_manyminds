@@ -5,7 +5,10 @@
         public $nomeIdTabela = '';
         
         public function __construct(){
-            parent::__construct();             
+            parent::__construct();   
+            
+            $this->load->model('log_model'); 
+            $this->load->model('detalhelog_model');          
         }
 
         public function selecionaTodos(){

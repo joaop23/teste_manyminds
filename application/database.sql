@@ -37,6 +37,9 @@ CREATE TABLE `perfis` (
     `cs_perfil` varchar(1) NOT NULL,
     PRIMARY KEY (`id_perfil`)
 );
+INSERT INTO `perfis` (`id_perfil`, `nm_perfil`, `cs_perfil`) VALUES ('1','Fornecedor','F');
+INSERT INTO `perfis` (`id_perfil`, `nm_perfil`, `cs_perfil`) VALUES ('2','Cliente','C');
+
 CREATE TABLE `enderecos` (
     `id_endereco` INT(7) NOT NULL AUTO_INCREMENT,
     `logradouro` varchar(250) NOT NULL,
@@ -58,16 +61,22 @@ CREATE TABLE `menu` (
     PRIMARY KEY (`id_menu`)
 );
 
+INSERT INTO `menu` (`id_menu`, `nm_programa`, `icone`, `url`) VALUES ('1','Cadastro de Usuarios','bi-person-bounding-box','index.php/usuarios');
+INSERT INTO `menu` (`id_menu`, `nm_programa`, `icone`, `url`) VALUES ('2','Cadastro de Produtos','bi-gift-fill','index.php/produtos');
+INSERT INTO `menu` (`id_menu`, `nm_programa`, `icone`, `url`) VALUES ('3','Cadastro de Pedidos','bi-cart','index.php/pedidos');
 CREATE TABLE `permissao_acesso` (
-    `id_permisao_acesso` INT(7) NOT NULL AUTO_INCREMENT,
+    `id_permissao_acesso` INT(7) NOT NULL AUTO_INCREMENT,
     `cs_permissao` varchar(1) NOT NULL,
     `id_perfil` INT(7) NOT NULL,
     `id_menu` INT(7) NOT NULL,
-    PRIMARY KEY (`id_permisao_acesso`)
+    PRIMARY KEY (`id_permissao_acesso`)
 );
 ALTER TABLE `permissao_acesso` ADD CONSTRAINT `permissao_acesso_fk0` FOREIGN KEY (`id_perfil`) REFERENCES `perfis`(`id_perfil`);
 ALTER TABLE `permissao_acesso` ADD CONSTRAINT `permissao_acesso_fk1` FOREIGN KEY (`id_menu`) REFERENCES `menu`(`id_menu`);
-
+INSERT INTO `permissao_acesso` (`id_permissao_acesso`, `cs_permissao`, `id_perfil`, `id_menu`) VALUES ('1','1','1','1');
+INSERT INTO `permissao_acesso` (`id_permissao_acesso`, `cs_permissao`, id_perfil, `id_menu`) VALUES ('2','1','2','1');
+INSERT INTO `permissao_acesso` (`id_permissao_acesso`, `cs_permissao`, id_perfil, `id_menu`) VALUES ('3','1','2','2');
+INSERT INTO `permissao_acesso` (`id_permissao_acesso`, `cs_permissao`, id_perfil, `id_menu`) VALUES ('4','1','2','3');
 CREATE TABLE `ca_login` (
     `id_ca_login` INT(7) NOT NULL AUTO_INCREMENT,
     `nr_ip` varchar(20) NOT NULL,
@@ -113,8 +122,8 @@ CREATE TABLE `detalhe_log` (
     `id_detalhe_log` INT(7) NOT NULL AUTO_INCREMENT,
     `id_log` INT(7) NOT NULL,
     `atributo` varchar(35) NOT NULL,
-    `valor` varchar(2000) NOT NULL,
-    `valor_novo` varchar(2000) NOT NULL,
+    `valor` varchar(2000),
+    `valor_novo` varchar(2000),
     PRIMARY KEY (`id_detalhe_log`)
 );
 ALTER TABLE `detalhe_log` ADD CONSTRAINT `detalhe_log_fk0` FOREIGN KEY (`id_log`) REFERENCES `log`(`id_log`);

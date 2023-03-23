@@ -40,6 +40,7 @@ class Login extends CI_Controller {
         $ip      = $this->input->ip_address();
         $email   = $this->input->post("nmEmail");
         $senha   = md5($this->input->post("teSenha"));
+        $dados   = $this->dadosTemplates;
         
         try {
             $obUsuarioModel = new Usuarios_model();
